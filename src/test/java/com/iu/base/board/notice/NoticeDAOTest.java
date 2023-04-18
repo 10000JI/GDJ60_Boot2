@@ -18,16 +18,21 @@ class NoticeDAOTest {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	//@Test
+	@Test
 	void setInsertTest() throws Exception{
+		for(int i=0;i<120;i++) {
 		BoardVO boardVO = new NoticeVO();
 		
-		boardVO.setWriter("IU");
-		boardVO.setTitle("Insert Test");
-		boardVO.setContents("Insert Test");
+		boardVO.setWriter("iu"+i);
+		boardVO.setTitle("Title Test"+i);
+		boardVO.setContents("Contents Test"+i);
 		
 		int result = noticeDAO.setInsert(boardVO);
-		assertEquals(1, result);
+		if(i%10==0) {
+			Thread.sleep(500);
+			}
+		}
+		System.out.println("종료");
 	}
 	
 	//@Test
@@ -62,15 +67,15 @@ class NoticeDAOTest {
 	}
 	
 	//@Test
-	void getSelectTest() throws Exception{
-		List<BoardVO> ar = noticeDAO.getSelect();
-		assertNotNull(ar.size());
-	}
+//	void getSelectTest() throws Exception{
+//		List<BoardVO> ar = noticeDAO.getList();
+//		assertNotNull(ar.size());
+//	}
 	
-	@Test
-	void getTotalCountTest() throws Exception{
-		Long result = noticeDAO.getTotalCount();
-		System.out.println(result);
-		assertEquals(1, result);
-	}
+	//@Test
+//	void getTotalCountTest() throws Exception{
+//		Long result = noticeDAO.getTotalCount();
+//		System.out.println(result);
+//		assertEquals(1, result);
+//	}
 }

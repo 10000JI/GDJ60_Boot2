@@ -25,12 +25,12 @@ public class Pager {
 	private Long startNum;
 	private Long lastNum;
 	
-	private boolean before;
-	private boolean after;
+	//이전 다음 블럭 유무
+	private boolean pre; //false 이전 X, true O
+	private boolean next; //false 다음 X, true O
 	
 	//검색 종류
 	private String kind;
-	
 	//검색어
 	private String search;
 	
@@ -61,15 +61,17 @@ public class Pager {
 		this.lastNum = this.getPerBlock()*curBlock;
 		
 		//6. 현재 블럭 번호가 마지막 블럭 이라면 끝번호는 전체 페이지 번호
-		this.after = true;
 		if(curBlock == totalBlock) {
 			lastNum = totalPage;
-			this.after = false;
 		}
 		
 		//7. 이전블럭, 다음 블럭 가능한지 유무
 		if(curBlock == 1) {
-			this.before=true;
+			this.pre=true;
+		}
+		
+		if(curBlock != totalBlock) {
+			this.next=true;
 		}
 	}
 	

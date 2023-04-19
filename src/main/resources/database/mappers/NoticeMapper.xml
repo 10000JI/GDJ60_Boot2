@@ -18,9 +18,14 @@
  		</where>
  	</sql>
  	
- 	<insert id="setInsert" parameterType="com.iu.base.board.BoardVO">
- 		INSERT INTO NOTICE (TITLE,CONTENTS,WRITER,REGDATE,HIT)
- 		VALUES(#{title},#{contents},#{writer},now(),0)
+ 	<insert id="setInsert" parameterType="BoardVO" useGeneratedKeys="true" keyProperty="num">
+ 		INSERT INTO NOTICE (NUM, TITLE,CONTENTS,WRITER,REGDATE,HIT)
+ 		VALUES(#{num}, #{title},#{contents},#{writer},now(),0)
+ 	</insert>
+ 	
+ 	<insert id="setBoardFileAdd" parameterType="BoardFileVO">
+ 		INSERT INTO NOTICEFILES (NUM, FILENAME,ORINAME)
+ 		VALUES(#{num}, #{fileName},#{oriName})
  	</insert>
  	
  	<update id="setUpdate" parameterType="com.iu.base.board.BoardVO">
@@ -31,9 +36,32 @@
  		DELETE FROM NOTICE WHERE NUM=#{num}
  	</delete>
  	
- 	<select id="getDetail" parameterType="BoardVO" resultType="BoardVO">
-		SELECT * FROM NOTICE WHERE NUM=#{num}
+ 	<select id="getDetail" parameterType="BoardVO" resultMap="getDetailResult"> 
+		SELECT *
+		FROM NOTICE N
+			LEFT JOIN
+			NOTICEFILES NF
+			USING(NUM)
+		WHERE NUM=#{num}
  	</select>
+ 	
+ 	<resultMap type="NoticeVO" id="getDetailResult">
+  		<id column="num" property="num"/>
+	  		<result column="title" property="title"/>
+	  		<result column="contents" property="contents"/>
+	  		<result column="writer" property="writer"/>
+	  		<result column="regDate" property="regDate"/>
+	  		<result column="hit" property="hit"/>
+		<collection property="boardFileVOs" javaType="List" ofType="BoardFileVO">
+			<id column="fileNum" property="fileNum"/>
+				<result column="fileName" property="fileName"/>
+				<result column="oriName" property="oriName"/>
+		</collection>  		
+  	</resultMap>
+  	
+  	<select id="getFileDetail" parameterType="BoardFileVO" resultType="BoardFileVO">
+  		SELECT * FROM NOTICEFILES WHERE FILENUM=#{fileNum}
+  	</select>
  	
  	<select id="getList" parameterType="Pager" resultType="NoticeVO">
 		SELECT * FROM NOTICE 
@@ -46,5 +74,5 @@
 		SELECT COUNT(NUM) FROM NOTICE
 		<include refid="search"></include>
  	</select>
- 	
+ 
  </mapper>

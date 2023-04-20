@@ -22,7 +22,7 @@
 			<div class="container px-5 my-5">
 				<div class="text-center mb-5">
 					<h1 class="fw-bolder">${board}List</h1>
-					<p class="lead fw-normal text-muted mb-0">공지사항 게시판 입니다.</p>
+					<p class="lead fw-normal text-muted mb-0">${board} 게시판 입니다.</p>
 				</div>
 
 				<div>
@@ -40,7 +40,11 @@
 							<c:forEach items="${list}" var="boardVO">
 								<tr>
 									<td>${boardVO.num}</td>
-									<td><a href="./detail?num=${boardVO.num}">${boardVO.title}</a></td>
+									<td>
+									<c:catch>
+										<c:forEach begin="1" end="${boardVO.depth}">--</c:forEach>
+									</c:catch>
+									<a href="./detail?num=${boardVO.num}">${boardVO.title}</a></td>
 									<td>${boardVO.writer}</td>
 									<td>${boardVO.regDate}</td>
 									<td>${boardVO.hit}</td>

@@ -2,6 +2,7 @@ package com.iu.base.board;
 
 import java.util.List;
 
+import com.iu.base.board.qna.QnaVO;
 import com.iu.base.util.Pager;
 
 public interface BoardDAO {

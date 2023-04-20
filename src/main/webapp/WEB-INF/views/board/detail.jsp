@@ -49,10 +49,11 @@
                                   ${boardVO.contents}
                                   
                                   <c:forEach items="${boardVO.boardFileVOs}" var="boardFileVO">
-                                  	<img alt="" src="/file/notice/${boardFileVO.fileName}">
+                                  	<img alt="" src="/file/${board}/${boardFileVO.fileName}">
                                   	<a href="./fileDown?fileNum=${boardFileVO.fileNum}">${boardFileVO.oriName }</a>
                                   </c:forEach>
                                 </section>
+                                <a href="./reply?num=${boardVO.num}" class="btn btn-primary">답글</a>
                             </article>
                             <!-- Comments section-->
                             <section>

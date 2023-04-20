@@ -19,10 +19,10 @@
                 alert('입력란을 다시 확인해주세요');
                 return false;
             }
-            else if ($(chk).prop('type') == "file") {
+            /*else if ($(chk).prop('type') == "file") {
                 alert('파일업로드 오류');
                 return false;
-            }
+            }*/
 		}
 		if ($(".note-editable").children().children().prop("tagName") == "BR") {
 	            alert('썸머노트 오류');

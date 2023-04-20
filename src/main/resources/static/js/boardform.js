@@ -28,6 +28,9 @@
 	            alert('썸머노트 오류');
 	            return false;
 	    }
+	    if(checked==false){
+			checked=true;
+		}
 	})
 	if(checked){
 		$("#contactForm").submit();

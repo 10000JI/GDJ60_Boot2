@@ -17,6 +17,8 @@ public class WebConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// TODO Auto-generated method stub
+		//<resoureces mapping="/resources/**" location="/resources/" />
+		//<resoureces mapping="/file/**" location="C:/production/upload/" />
 		registry.addResourceHandler(urlPath) //요청 URL 주소
 		.addResourceLocations(basePath);
 	}

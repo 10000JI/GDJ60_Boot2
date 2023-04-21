@@ -6,12 +6,12 @@
  <mapper namespace="com.iu.base.member.MemberDAO">
 	<insert id="setJoin" parameterType="MemberVO" >
 		INSERT INTO MEMBER
-		VALUES (#{userName},#{passWord},#{name},#{email},#{birth},1)
+		VALUES (#{userName},#{passWord},#{name},#{email},#{birth},#{enabled})
 	</insert>
 	
-	<insert id="setRoleAdd" parameterType="MemberVO">
-		INSERT INTO MEMBER_ROLE (USERNAME,NUM)
-		VALUES(#{userName},(SELECT NUM FROM ROLE WHERE ROLENAME='ROLE_MEMBER'))
+	<insert id="setMemberRole" parameterType="Map">
+		INSERT INTO MEMBER_ROLE (USERNAME, NUM)
+		VALUES (#{userName}, #{num})
 	</insert>
 	
 	<select id="getLogin" parameterType="MemberVO" resultMap="getLoginResult" >
@@ -34,4 +34,8 @@
 			<result column="ROLENAME" property="roleName"/>
 		</collection>	
 	</resultMap>
+	
+	<select id="getList" resultType="MemberVO">
+		SELECT * FROM MEMBER
+	</select>
  </mapper>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html lang="en">
     <head>
         <meta charset="utf-8" />
@@ -37,7 +38,19 @@
             <section class="py-5" id="features">
                 <div class="container px-5 my-5">
                     <div class="row gx-5">
-                        <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">A better way to start building.</h2></div>
+                        <div class="col-lg-4 mb-5 mb-lg-0">
+                        
+                        	<!-- message -->
+                        
+                        	<h1>
+                        		<spring:message code="loginSuccess" text="없는 message" 
+                        		arguments="${member.userName},${member.name}" argumentSeparator=","></spring:message>
+                        	</h1>
+                        	
+                        	<!-- message -->
+                        	
+                        	<h2 class="fw-bolder mb-0">A better way to start building.</h2>
+                        </div>
                         <div class="col-lg-8">
                             <div class="row gx-5 row-cols-1 row-cols-md-2">
                                 <div class="col mb-5 h-100">

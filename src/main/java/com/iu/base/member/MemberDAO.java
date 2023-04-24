@@ -18,4 +18,6 @@ public interface MemberDAO {
 	
 	//회원 리스트
 	public List<MemberVO> getList() throws Exception;
+	
+	public MemberVO idDuplicateCheck(MemberVO memberVO) throws Exception;
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,56 +37,51 @@
                                 <!-- To make this form functional, sign up at-->
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
-                                <form id="contactForm" action="./join" method="post" data-sb-form-api-token="API_TOKEN">
+                                    <form:form id="contactForm" modelAttribute="memberVO" action="./join" method="post" data-sb-form-api-token="API_TOKEN">
                                     <!-- UserName input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="userName" name="userName" type="text" required="required" placeholder="Enter your userName..." data-sb-validations="required" />
-                                        <label for="userName">User name</label>
-                                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        <form:input path="userName" id="userName" cssClass="form-control"/>
+                                        <form:label path="userName">User name</form:label>
+                                        <form:errors path="userName"></form:errors>
                                     </div>
                                     <!-- Password input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="passWord" name="passWord" type="passWord" data-sb-validations="required,email" />
-                                        <label for="passWord">passWord</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    	<form:password path="passWord" id="passWord" cssClass="form-control"/>
+                                        <form:label path="passWord">passWord</form:label>
+                                        <form:errors path="passWord"></form:errors>
                                     </div>
                                     
                                      <!-- PasswordCheck input-->
-                                    <div class="form-floating mb-3">
-                                        <input class="form-control" id="passWordCheck" name="passWordCheck" type="passWord" data-sb-validations="required,email" />
-                                        <label for="passWordCheck">passWordCheck</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                     <div class="form-floating mb-3">
+                                        <form:password cssClass="form-control" id="passWordCheck" path="passWordCheck" />
+                                        <form:label path="passWordCheck">passWordCheck</form:label>
+                                        <form:errors path="passWordCheck"></form:errors>
                                     </div>
                                   
                                   	 <!-- Name input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="name" name="name" type="text" data-sb-validations="required,email" />
-                                        <label for="name">name</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    <form:input path="name" id="name" cssClass="form-control"/>
+                                        <form:label path="name">name</form:label>
+                                        <form:errors path="name"></form:errors>
                                     </div>
                                     
                                     <!-- email input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="email" name="email" type="email" data-sb-validations="required,email" />
-                                        <label for="email">email</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    <form:input path="email" id="email" cssClass="form-control"/>
+                                        <form:label path="email">email</form:label>
+                                        <form:errors path="email"></form:errors>
                                     </div>
                                     
                                      <!-- Birth input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="birth" name="birth" type="date" data-sb-validations="required,email" />
+                                     <input class="form-control" id="birth" name="birth" type="date" data-sb-validations="required,email" />
                                         <label for="birth">birth</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                        <form:errors path="birth"></form:errors>
                                     </div>
                                  
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button></div>
-                                </form>
+                                </form:form>
                             </div>
                         </div>
                     </div>

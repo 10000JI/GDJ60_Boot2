@@ -38,4 +38,8 @@
 	<select id="getList" resultType="MemberVO">
 		SELECT * FROM MEMBER
 	</select>
+	
+	<select id="idDuplicateCheck" resultType="MemberVO" parameterType="MemberVO">
+		SELECT USERNAME FROM MEMBER WHERE USERNAME=#{userName}
+	</select>
  </mapper>

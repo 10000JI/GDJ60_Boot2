@@ -6,10 +6,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,26 +52,22 @@ public class MemberController {
 		return check; //0이면 중복 , 1이면 가입 가능
 	}
 	
-	@GetMapping("pwDuplicateCheck")
-	@ResponseBody
-	public boolean pwDuplicateCheck(String passWord, String passWordCheck) {
-		boolean check = false;
-		if(passWord.equals(passWordCheck)) {
-			check = true;
-		}
-		return check;
-	}
-	
 	@GetMapping("join")
-	public ModelAndView setJoin() throws Exception{
+	public ModelAndView setJoin(@ModelAttribute MemberVO memberVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("member/join");
 		return mv;
 	}
 	
 	@PostMapping("join")
-	public ModelAndView setJoin(MemberVO memberVO) throws Exception{
+	public ModelAndView setJoin(@Valid MemberVO memberVO, BindingResult bindingResult,HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
+		boolean check  = memberService.memberCheck(memberVO, bindingResult,session);
+		if(check) {
+			log.warn("======검증에 실패======");
+			mv.setViewName("member/join");
+			return mv;
+		}
 		int result = memberService.setJoin(memberVO);
 		mv.setViewName("redirect:../");
 		return mv;

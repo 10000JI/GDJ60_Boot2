@@ -20,7 +20,7 @@ public class MemberService {
 	private MemberDAO memberDAO;
 	
 	//패스워드가 일치하는지 검증하는 메서드
-	public boolean memberCheck(MemberVO memberVO, BindingResult bindingResult,HttpSession session) throws Exception{
+	public boolean memberCheck(MemberVO memberVO, BindingResult bindingResult) throws Exception{
 		boolean result = false;
 		//false : error가 없음, 검증 성공
 		//true : error가 있음, 검증 실패
@@ -35,13 +35,12 @@ public class MemberService {
 		}
 		
 		//3. ID 중복 검사
-		List<MemberVO> ar = memberDAO.getList();
-		for (MemberVO vo : ar) {
-			if(memberVO.getUserName().equals(vo.getUserName())) {
-				result = true;
-				bindingResult.rejectValue("userName", "member.userName.notEqual");
-			}
-		}
+		MemberVO checkMember = memberDAO.idDuplicateCheck(memberVO);
+		 if(checkMember != null) {
+			 result=true;
+			 bindingResult.rejectValue("userName", "member.userName.notEqual");
+		 }
+		
 		return result;
 	}
 	
@@ -61,6 +60,10 @@ public class MemberService {
 	
 	public List<MemberVO> getList() throws Exception{
 		return memberDAO.getList();
+	}
+	
+	public MemberVO idDuplicateCheck(MemberVO memberVO)throws Exception{
+		return memberDAO.idDuplicateCheck(memberVO);
 	}
 
 }

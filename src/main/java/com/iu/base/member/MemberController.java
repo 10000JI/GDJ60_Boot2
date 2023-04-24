@@ -41,15 +41,16 @@ public class MemberController {
 	@GetMapping("idDuplicateCheck")
 	@ResponseBody
 	public boolean idDuplicateCheck(MemberVO memberVO) throws Exception{
-		log.debug("======================== id중복체크 ========================");
-		boolean check = true;
-		List<MemberVO> ar= memberService.getList();
-		for (MemberVO vo : ar) {
-			if(memberVO.getUserName().equals(vo.getUserName())){
-				check =false;
-			}
+		log.debug("================ ID 중복 체크 =================");
+		boolean check=false;
+		
+		memberVO = memberService.idDuplicateCheck(memberVO);
+		
+		if(memberVO == null) {
+			check=true;
 		}
-		return check; //0이면 중복 , 1이면 가입 가능
+		
+		return check;
 	}
 	
 	@GetMapping("join")
@@ -60,9 +61,9 @@ public class MemberController {
 	}
 	
 	@PostMapping("join")
-	public ModelAndView setJoin(@Valid MemberVO memberVO, BindingResult bindingResult,HttpSession session) throws Exception{
+	public ModelAndView setJoin(@Valid MemberVO memberVO, BindingResult bindingResult) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		boolean check  = memberService.memberCheck(memberVO, bindingResult,session);
+		boolean check  = memberService.memberCheck(memberVO, bindingResult);
 		if(check) {
 			log.warn("======검증에 실패======");
 			mv.setViewName("member/join");

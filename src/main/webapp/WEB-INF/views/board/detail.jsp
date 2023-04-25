@@ -53,7 +53,10 @@
                                   	<a href="./fileDown?fileNum=${boardFileVO.fileNum}">${boardFileVO.oriName }</a>
                                   </c:forEach>
                                 </section>
-                                <a href="./reply?num=${boardVO.num}" class="btn btn-primary">답글</a>
+                                <form action="./delete" method="post">
+                                	<input type="hidden" id="num" name="num" value="${boardVO.num}">
+                                	<button class="btn btn-primary">삭제</button>
+                                </form>
                             </article>
                             <!-- Comments section-->
                             <section>

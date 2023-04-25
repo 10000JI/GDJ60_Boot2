@@ -98,4 +98,12 @@ public class NoticeController {
 		mv.setViewName("redirect:./list");
 		return mv;
 	}
+	
+	@PostMapping("delete")
+	public ModelAndView setDelete(NoticeVO noticeVO) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		int reuslt = noticeService.setDelete(noticeVO);
+		mv.setViewName("redirect:./list");
+		return mv;
+	}
 }

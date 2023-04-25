@@ -23,6 +23,6 @@ public interface BoardService {
 	public int setUpdate(BoardVO boardVO) throws Exception;
 	
 	//글삭제
-	public int setDelete(BoardVO boardVO) throws Exception;
+	public int setDelete(BoardVO boardVO,Long fileNum) throws Exception;
 	
 }

@@ -55,6 +55,9 @@
                                 </section>
                                 <form action="./delete" method="post">
                                 	<input type="hidden" id="num" name="num" value="${boardVO.num}">
+                                	 <c:forEach items="${boardVO.boardFileVOs}" var="boardFileVO">
+                                  	<input type="hidden" id="fileNum" name="fileNum" value="${boardFileVO.fileNum}">
+                                  	</c:forEach>
                                 	<button class="btn btn-primary">삭제</button>
                                 </form>
                             </article>

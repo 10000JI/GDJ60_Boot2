@@ -36,6 +36,10 @@
  		DELETE FROM NOTICE WHERE NUM=#{num}
  	</delete>
  	
+ 	<delete id="setBoardFileDelete" parameterType="Long">
+ 		DELETE FROM NOTICEFILES WHERE FILENUM=#{fileNum}
+ 	</delete> 
+ 	
  	<select id="getDetail" parameterType="BoardVO" resultMap="getDetailResult"> 
 		SELECT *
 		FROM NOTICE N

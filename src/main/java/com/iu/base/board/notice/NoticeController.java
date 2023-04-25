@@ -84,16 +84,6 @@ public class NoticeController {
 	@PostMapping("add")
 	public ModelAndView setInsert(@Valid BoardVO boardVO,BindingResult bindingResult, MultipartFile[] boardFiles) throws Exception{		
 		
-		log.error("============={}==============",boardVO.getSubVO().getSubName());
-		
-		for(String n: boardVO.getNames()) {
-			log.error("============={}==============",n);
-		}
-		
-		for(BoardFileVO boardFileVO : boardVO.getBoardFileVOs()) {
-			log.error("============={}==============",boardFileVO.getFileName());
-		}
-		
 		ModelAndView mv = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			log.warn("========== 검증에 실패 ==========");

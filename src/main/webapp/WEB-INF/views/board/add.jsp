@@ -57,35 +57,6 @@
                                         <label for="writer">Writer</label>
                                         <form:errors path="writer"></form:errors>
                                     </div>
-                                    
-                                    <!-- SubName address input-->
-                                    <div class="form-floating mb-3">
-                                        <form:input path="subVO.subName" id="writer" cssClass="form-control"/>
-                                        <label for="writer">SubName</label>
-                                    </div>               
-                                    
-                                     <!-- Writer address input-->
-                                    <div class="form-floating mb-3">
-                                        <form:input path="names" id="writer" cssClass="form-control"/>
-                                        <label for="writer">names</label>
-                                    </div>
-                                    <!-- Writer address input-->
-                                    <div class="form-floating mb-3">
-                                        <form:input path="names" id="writer" cssClass="form-control"/>
-                                        <label for="writer">names</label>
-                                    </div>   
-                                    
-                                    <!-- Writer address input-->
-                                    <div class="form-floating mb-3">
-                                        <form:input path="boardFileVOs[1].fileName" id="writer" cssClass="form-control"/>
-                                        <label for="writer">BoardFileName</label>
-                                    </div>   
-                                    
-                                    <!-- Writer address input-->
-                                    <div class="form-floating mb-3">
-                                        <form:input path="boardFileVOs[1].fileName" id="writer" cssClass="form-control"/>
-                                        <label for="writer">BoardFileName</label>
-                                    </div>   
                                                                                    
                                     <!-- Contents input-->
                                     <div class="form-floating mb-3">

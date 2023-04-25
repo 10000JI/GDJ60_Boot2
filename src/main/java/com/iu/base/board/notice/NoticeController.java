@@ -83,6 +83,17 @@ public class NoticeController {
 	
 	@PostMapping("add")
 	public ModelAndView setInsert(@Valid BoardVO boardVO,BindingResult bindingResult, MultipartFile[] boardFiles) throws Exception{		
+		
+		log.error("============={}==============",boardVO.getSubVO().getSubName());
+		
+		for(String n: boardVO.getNames()) {
+			log.error("============={}==============",n);
+		}
+		
+		for(BoardFileVO boardFileVO : boardVO.getBoardFileVOs()) {
+			log.error("============={}==============",boardFileVO.getFileName());
+		}
+		
 		ModelAndView mv = new ModelAndView();
 		if(bindingResult.hasErrors()) {
 			log.warn("========== 검증에 실패 ==========");
@@ -93,7 +104,7 @@ public class NoticeController {
 		for(MultipartFile multipartFile:boardFiles) {
 			log.info("OriginalName: {} Size: {}", multipartFile.getOriginalFilename(), multipartFile.getSize());
 		}
-		int result = noticeService.setInsert(boardVO,boardFiles);
+		//int result = noticeService.setInsert(boardVO,boardFiles);
 		//boardFiles는 jsp에서 온 파라미터 이름과 동일하게 하려고, Service는 어떤 이름이 와도 상관X
 		mv.setViewName("redirect:./list");
 		return mv;

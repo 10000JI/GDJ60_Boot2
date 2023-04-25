@@ -56,9 +56,37 @@
                                         <form:input path="writer" id="writer" cssClass="form-control"/>
                                         <label for="writer">Writer</label>
                                         <form:errors path="writer"></form:errors>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                                    </div>                                  
+                                    </div>
+                                    
+                                    <!-- SubName address input-->
+                                    <div class="form-floating mb-3">
+                                        <form:input path="subVO.subName" id="writer" cssClass="form-control"/>
+                                        <label for="writer">SubName</label>
+                                    </div>               
+                                    
+                                     <!-- Writer address input-->
+                                    <div class="form-floating mb-3">
+                                        <form:input path="names" id="writer" cssClass="form-control"/>
+                                        <label for="writer">names</label>
+                                    </div>
+                                    <!-- Writer address input-->
+                                    <div class="form-floating mb-3">
+                                        <form:input path="names" id="writer" cssClass="form-control"/>
+                                        <label for="writer">names</label>
+                                    </div>   
+                                    
+                                    <!-- Writer address input-->
+                                    <div class="form-floating mb-3">
+                                        <form:input path="boardFileVOs[1].fileName" id="writer" cssClass="form-control"/>
+                                        <label for="writer">BoardFileName</label>
+                                    </div>   
+                                    
+                                    <!-- Writer address input-->
+                                    <div class="form-floating mb-3">
+                                        <form:input path="boardFileVOs[1].fileName" id="writer" cssClass="form-control"/>
+                                        <label for="writer">BoardFileName</label>
+                                    </div>   
+                                                                                   
                                     <!-- Contents input-->
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control check" id="contents" name="contents" placeholder="Enter your contents here..." style="height: 10rem" data-sb-validations="required"></textarea>

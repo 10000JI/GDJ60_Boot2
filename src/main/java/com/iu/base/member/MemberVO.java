@@ -28,6 +28,7 @@ public class MemberVO {
 	private String email;
 	@Future
 	private Date birth;
+	private Date lastTime;
 	private boolean enabled;
 	
 	private List<RoleVO> roleVOs;

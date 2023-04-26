@@ -39,7 +39,36 @@
 		SELECT * FROM MEMBER
 	</select>
 	
+	<select id="getUserList" resultType="MemberVO">
+		SELECT USERNAME FROM MEMBER
+	</select>
+	
 	<select id="idDuplicateCheck" resultType="MemberVO" parameterType="MemberVO">
 		SELECT USERNAME FROM MEMBER WHERE USERNAME=#{userName}
 	</select>
+	
+	<update id="setLastTimeUpdate" parameterType="MemberVO" >
+	UPDATE MEMBER SET LASTTIME=now()  WHERE USERNAME=#{userName}
+ 	</update>
+ 	
+ 	<update id="setEnabledUpdate">
+ 	<!-- <![CDATA[  
+ 		UPDATE MEMBER SET ENABLED = 0
+		WHERE LASTTIME <= now()-INTERVAL 3 DAY
+	]]>  -->
+	UPDATE MEMBER SET ENABLED = 0
+	WHERE USERNAME 
+		IN 
+			(
+				SELECT userName FROM MEMBER 
+				WHERE TIMESTAMPDIFF(DAY,LASTTIME,now()
+			)
+		>=3
+	)
+ 	</update>
+ 	
+ 	<select id="getBirthList" resultType="MemberVO">
+ 	SELECT * FROM MEMBER
+	WHERE DATE_FORMAT(birth,'%M-%D')=DATE_FORMAT(now(),'%M-%D')  
+ 	</select>
  </mapper>

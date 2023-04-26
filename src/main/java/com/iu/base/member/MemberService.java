@@ -65,5 +65,10 @@ public class MemberService {
 	public MemberVO idDuplicateCheck(MemberVO memberVO)throws Exception{
 		return memberDAO.idDuplicateCheck(memberVO);
 	}
+	
+	//로그아웃할때 현재 시간
+	public int setLastTimeUpdate(MemberVO memberVO) throws Exception{
+		return memberDAO.setLastTimeUpdate(memberVO);
+	}
 
 }

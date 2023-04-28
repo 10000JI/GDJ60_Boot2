@@ -36,6 +36,12 @@
                                 <!-- To make this form functional, sign up at-->
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
+                                
+                                <c:if test="${not empty param.errorMessage}">
+                                <!-- 쿠키를 꺼낸것처럼 파라미터로도 데이터 꺼낼 수 있다(모델,vo 아니어도) -->
+                                	<h1>${param.errorMessage}</h1>
+                                </c:if>
+                                
                                 <form id="contactForm" action="./login" method="post" data-sb-form-api-token="API_TOKEN">
                                     <!-- UserName input-->
                                     <div class="form-floating mb-3">
@@ -93,5 +99,8 @@
 	<!-- Footer 적용 -->
    	<c:import url="../temp/footer.jsp"></c:import>
    	<!-- Footer 끝 -->
+   	<script>
+   	history.replaceState({}, null, location.pathname)
+   	</script>
 </body>
 </html>

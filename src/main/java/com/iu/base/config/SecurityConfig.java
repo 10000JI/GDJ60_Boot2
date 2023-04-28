@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.iu.base.security.UserLoginFailHandler;
 import com.iu.base.security.UserLogoutSucessHandler;
 import com.iu.base.security.UserSuccessHandler;
 
@@ -61,7 +62,8 @@ public class SecurityConfig {
 //				.usernameParameter("userName") //id 파라미터는 username이지만, 개발자가 다른 파라미터 이름을 사용할 때
 //				.defaultSuccessUrl("/") //인증에 성공할 경우 요청할 URL
 				.successHandler(new UserSuccessHandler()) //UserSuccessHandler 객체 생성 (로그인 성공시)
-				.failureUrl("/member/login") //인증에 실패했을 경우 요청할 URL
+//				.failureUrl("/member/login") //인증에 실패했을 경우 요청할 URL
+				.failureHandler(new UserLoginFailHandler()) //UserLoginFailHandler 객체 생성 (로그인 실패시)
 				.permitAll()
 				.and()
 			.logout() //로그아웃 폼 인증 설정

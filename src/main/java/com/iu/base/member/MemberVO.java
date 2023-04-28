@@ -35,7 +35,7 @@ public class MemberVO implements UserDetails{
 	@Future
 	private Date birth;
 	private Date lastTime;
-	//private boolean enabled;
+	private boolean enabled;
 	
 	private List<RoleVO> roleVOs;
 
@@ -96,9 +96,9 @@ public class MemberVO implements UserDetails{
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		// 계정 사용 여부
-		// true: 계정 활성화
-		// false: 계정 비활성화, 로그인 안됨 
-		return true;
+		// true = 1: 계정 활성화
+		// false = 0: 계정 비활성화, 로그인 안됨 
+		return this.enabled;
 	}
 	
 	

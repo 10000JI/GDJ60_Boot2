@@ -66,6 +66,18 @@ public class MemberController {
 	
 	@GetMapping("info")
 	public void info(HttpSession session) {
+		String pw = "12345678";
+		
+		MemberVO memberVO = (MemberVO)memberService.loadUserByUsername("minji");
+		
+		log.error("{} ::::: ", memberVO.getPassword());
+		log.error("{} ::::: ", passwordEncoder.encode(pw)); 
+		log.error("{} ::::: ", memberVO.getPassword().equals(passwordEncoder.encode(pw)));
+		//똑같은 비번을 넣었는데도 불구하고 flase
+		
+		boolean check = passwordEncoder.matches(pw, memberVO.getPassword());
+		log.error("{} ::::::",check);
+		
 		//로그인 후 확인하는 과정
 		log.error("================= Login Info =================");
 		//세션 이름 알아내기 => SPRING_SECURITY_CONTEXT
@@ -74,13 +86,13 @@ public class MemberController {
 //			log.error("================={}=================",names.nextElement());
 //		}
 		//세션 가져와서 정보 읽어보기
-		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
-		log.error("=={}==",obj);
-		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
-		Authentication authentication = contextImpl.getAuthentication();
-		log.error("==Name:{}==",authentication.getName());
-		log.error("===Detail:{}==",authentication.getDetails());
-		log.error("==MemberVO:{}==",authentication.getPrincipal());
+//		Object obj = session.getAttribute("SPRING_SECURITY_CONTEXT");
+//		log.error("=={}==",obj);
+//		SecurityContextImpl contextImpl = (SecurityContextImpl)obj;
+//		Authentication authentication = contextImpl.getAuthentication();
+//		log.error("==Name:{}==",authentication.getName());
+//		log.error("===Detail:{}==",authentication.getDetails());
+//		log.error("==MemberVO:{}==",authentication.getPrincipal());
 		
 	}
 	

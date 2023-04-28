@@ -10,6 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.iu.base.member.MemberService;
+import com.iu.base.member.MemberSocialService;
 import com.iu.base.security.UserLoginFailHandler;
 import com.iu.base.security.UserLogoutSucessHandler;
 import com.iu.base.security.UserSuccessHandler;
@@ -20,6 +22,9 @@ public class SecurityConfig {
 	
 	@Autowired
 	private UserLogoutSucessHandler logoutSucessHandler;
+	
+	@Autowired
+	private MemberSocialService memberSocialService;
 	
 	@Bean
 	//public 을 선언하면 default로 바꾸라는 메세지 출력
@@ -44,7 +49,7 @@ public class SecurityConfig {
 				//URL과 권한매칭
 				.antMatchers("/").permitAll() //루트만 허용
 				.antMatchers("/member/join").permitAll()
-				.antMatchers("/notice/add").hasRole("ADMIN")
+				.antMatchers("/notice/add").hasRole("MEMBER")
 				.antMatchers("/notice/update").hasRole("ADMIN") //Role를 가진 사람만 허용 
 				.antMatchers("/notice/delete").hasRole("ADMIN")
 				.antMatchers("/notice/*").permitAll() //순서 중요 => notice/add로 먼저 걸러준다
@@ -72,7 +77,14 @@ public class SecurityConfig {
 				.logoutSuccessHandler(logoutSucessHandler)//UserLogoutSucessHandler 객체 생성 (로그아웃 성공시)
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
-				.permitAll();
+				.permitAll()
+				.and()
+			.oauth2Login()
+				.userInfoEndpoint()
+				.userService(memberSocialService);
+//			.sessionManagement()
+//				.maximumSessions(1) //최대 허용 가능한 세션 수 => -1: 무제한, 1:한명만 접속
+//				.maxSessionsPreventsLogin(false); //false: 이전 사용자 세션 만료, true: 새로운 사용자 인증 실패
 				
 				
 		return httpSecurity.build();

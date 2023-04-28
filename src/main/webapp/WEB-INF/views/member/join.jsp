@@ -40,15 +40,15 @@
                                     <form:form id="contactForm" modelAttribute="memberVO" action="./join" method="post" data-sb-form-api-token="API_TOKEN">
                                     <!-- UserName input-->
                                     <div class="form-floating mb-3">
-                                        <form:input path="userName" id="userName" cssClass="form-control"/>
-                                        <form:label path="userName">User name</form:label>
-                                        <form:errors path="userName"></form:errors>
+                                        <form:input path="username" id="username" cssClass="form-control"/>
+                                        <form:label path="username">User name</form:label>
+                                        <form:errors path="username"></form:errors>
                                     </div>
                                     <!-- Password input-->
                                     <div class="form-floating mb-3">
-                                    	<form:password path="passWord" id="passWord" cssClass="form-control"/>
-                                        <form:label path="passWord">passWord</form:label>
-                                        <form:errors path="passWord"></form:errors>
+                                    	<form:password path="password" id="passWord" cssClass="form-control"/>
+                                        <form:label path="password">passWord</form:label>
+                                        <form:errors path="password"></form:errors>
                                     </div>
                                     
                                      <!-- PasswordCheck input-->

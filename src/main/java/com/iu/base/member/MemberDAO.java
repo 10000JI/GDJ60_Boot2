@@ -22,6 +22,12 @@ public interface MemberDAO {
 	//id중복체크
 	public MemberVO idDuplicateCheck(MemberVO memberVO) throws Exception;
 	
+	//email체크
+	public MemberVO emailCheck(MemberVO memberVO) throws Exception;
+	
+	//재발급된 패스워드 업데이트
+	public int setPasswordUpdate(MemberVO memberVO) throws Exception;
+	
 	//유저리스트
 	public List<MemberVO> getUserList() throws Exception;
 	

@@ -5,17 +5,17 @@
  
  <mapper namespace="com.iu.base.member.MemberDAO">
 	<insert id="setJoin" parameterType="MemberVO" >
-		INSERT INTO MEMBER
-		VALUES (#{userName},#{passWord},#{name},#{email},#{birth},#{enabled})
+		INSERT INTO MEMBER(USERNAME,PASSWORD,NAME,EMAIL,BIRTH,ENABLED)
+		VALUES (#{username},#{password},#{name},#{email},#{birth},1)
 	</insert>
 	
 	<insert id="setMemberRole" parameterType="Map">
 		INSERT INTO MEMBER_ROLE (USERNAME, NUM)
-		VALUES (#{userName}, #{num})
+		VALUES (#{username}, #{num})
 	</insert>
 	
 	<select id="getLogin" parameterType="MemberVO" resultMap="getLoginResult" >
-		SELECT M.userName, M.email, R.num, R.roleName
+		SELECT M.username,M.password, M.email, R.num, R.roleName
 		FROM MEMBER M
 			INNER JOIN 
  			MEMBER_ROLE MR
@@ -23,11 +23,13 @@
  			INNER JOIN
  			ROLE R 
  			ON (MR.NUM = R.NUM)
-		WHERE M.USERNAME=#{userName} AND M.PASSWORD=#{passWord}
+		WHERE M.USERNAME=#{username}
+		<!-- 패스워드를 여기서 비교하지 않는다(AND M.PASSWORD=#{paaword} 삭제함) -->
 	</select>
 	
 	<resultMap type="MemberVO" id="getLoginResult">
-		<id column="userName" property="userName" />
+		<id column="username" property="username" />
+		<result column="password" property="password"/>
 		<result column="eamil" property="email"/>
 		<collection property="roleVOs" javaType="List" ofType="RoleVO">
 			<id column="num" property="num"/>
@@ -44,11 +46,19 @@
 	</select>
 	
 	<select id="idDuplicateCheck" resultType="MemberVO" parameterType="MemberVO">
-		SELECT USERNAME FROM MEMBER WHERE USERNAME=#{userName}
+		SELECT USERNAME FROM MEMBER WHERE USERNAME=#{username}
 	</select>
 	
+	<select id="emailCheck" resultType="MemberVO" parameterType="MemberVO">
+		SELECT EMAIL FROM MEMBER WHERE EMAIL=#{email}
+	</select>
+	
+	<update id="setPasswordUpdate" parameterType="MemberVO" >
+	UPDATE MEMBER SET PASSWORD=#{password}  WHERE USERNAME=#{username}
+ 	</update>
+	
 	<update id="setLastTimeUpdate" parameterType="MemberVO" >
-	UPDATE MEMBER SET LASTTIME=now()  WHERE USERNAME=#{userName}
+	UPDATE MEMBER SET LASTTIME=now()  WHERE USERNAME=#{username}
  	</update>
  	
  	<update id="setEnabledUpdate">
@@ -60,7 +70,7 @@
 	WHERE USERNAME 
 		IN 
 			(
-				SELECT userName FROM MEMBER 
+				SELECT username FROM MEMBER 
 				WHERE TIMESTAMPDIFF(DAY,LASTTIME,now()
 			)
 		>=3

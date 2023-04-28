@@ -3,23 +3,49 @@ package com.iu.base.member;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class MemberService {
+@Transactional(rollbackFor = Exception.class)
+public class MemberService implements UserDetailsService{
 	
 	@Autowired
 	private MemberDAO memberDAO;
 	
-	//패스워드가 일치하는지 검증하는 메서드
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		log.error("==================Spring Security Login==================");
+		log.error("=================={}==================", username);
+		MemberVO memberVO = new MemberVO();
+		memberVO.setUsername(username);
+		try {
+			memberVO = memberDAO.getLogin(memberVO);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		return memberVO;
+	}
+
+	//패스워드가 일치하는지 검증하는 메서드 + 이메일 중복 체크 메서드
 	public boolean memberCheck(MemberVO memberVO, BindingResult bindingResult) throws Exception{
 		boolean result = false;
 		//false : error가 없음, 검증 성공
@@ -29,7 +55,7 @@ public class MemberService {
 		result = bindingResult.hasErrors();
 		
 		//2. password 일치 검증
-		if(!memberVO.getPassWord().equals(memberVO.getPassWordCheck())) {
+		if(!memberVO.getPassword().equals(memberVO.getPassWordCheck())) {
 			result = true;
 			bindingResult.rejectValue("passWordCheck", "member.password.notEqual");
 		}
@@ -38,7 +64,7 @@ public class MemberService {
 		MemberVO checkMember = memberDAO.idDuplicateCheck(memberVO);
 		 if(checkMember != null) {
 			 result=true;
-			 bindingResult.rejectValue("userName", "member.userName.notEqual");
+			 bindingResult.rejectValue("username", "member.userName.notEqual");
 		 }
 		
 		return result;
@@ -49,10 +75,11 @@ public class MemberService {
 	}
 	
 	public int setJoin(MemberVO memberVO) throws Exception{
-		memberVO.setEnabled(true);
+		//memberVO.setEnabled(true);
+		memberVO.setPassword(passwordEncoder.encode(memberVO.getPassword()));
 		int result = memberDAO.setJoin(memberVO);
 		Map<String, Object> map = new HashMap<>();
-		map.put("userName", memberVO.getUserName());
+		map.put("username", memberVO.getUsername());
 		map.put("num", 3);
 		result = memberDAO.setMemberRole(map);
 		return result;
@@ -70,5 +97,52 @@ public class MemberService {
 	public int setLastTimeUpdate(MemberVO memberVO) throws Exception{
 		return memberDAO.setLastTimeUpdate(memberVO);
 	}
+	
+	//비밀번호 재발급 받을때, 아이디 이메일 체크 하는 창
+	public boolean idEmailCheck(MemberVO memberVO, BindingResult bindingResult) throws Exception{
+			boolean result = false;
+			//false : 이메일 전송해야됨
+			//true :  이메일 전송하면 안됨
+			
+			//1. annotation의 검증 결과
+			result = bindingResult.hasErrors();
+			
+			//2. 아이디 이메일 체크
+			MemberVO checkMember = memberDAO.idDuplicateCheck(memberVO);
+			MemberVO checkEamil = memberDAO.emailCheck(memberVO);
+			 if(checkMember != null && checkEamil != null) {
+				 result=true;
+				 bindingResult.rejectValue("email", "member.checkEmail.check");
+			 }
+			
+			return result;
+		}
+	
+	public String generatePassword() {
+        String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        String numbers = "0123456789";
+        String password = "";
 
+        Random random = new Random();
+
+        // 6글자의 비밀번호를 생성합니다.
+        for (int i = 0; i < 6; i++) {
+            // 랜덤하게 알파벳 또는 숫자를 선택합니다.
+            boolean isLetter = random.nextBoolean();
+            if (isLetter) {
+                // 알파벳인 경우
+                int index = random.nextInt(letters.length());
+                password += letters.charAt(index);
+            } else {
+                // 숫자인 경우
+                int index = random.nextInt(numbers.length());
+                password += numbers.charAt(index);
+            }
+        }
+
+        return password;
+    }
+	public int setPasswordUpdate(MemberVO memberVO) throws Exception{
+		return memberDAO.setPasswordUpdate(memberVO);
+	}
 }

@@ -43,5 +43,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
 //					.addPathPatterns("/notice/*")
 //					.excludePathPatterns("/notice/list")
 //					.excludePathPatterns("/notice/detail");
+		//인터셉터는 Security에서 한다
 	}
 }

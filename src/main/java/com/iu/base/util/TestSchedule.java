@@ -28,7 +28,7 @@ public class TestSchedule {
 	@Autowired
 	private MailManager mailManager;
 	
-	@Scheduled(cron = "40 * * * * *")
+	//@Scheduled(cron = "40 * * * * *")
 	public void test() throws Exception {
 		
 		int result = memberDAO.setEnabledUpdate();
@@ -37,7 +37,7 @@ public class TestSchedule {
 		
 	}
 	
-	@Scheduled(cron = "20 * * * * *")
+	//@Scheduled(cron = "20 * * * * *")
 	public void writer() throws Exception{
 		List<MemberVO> ar =  memberDAO.getBirthList();
 //		StringBuffer sb = new StringBuffer();

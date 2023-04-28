@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +25,7 @@
                     <div class="bg-light rounded-3 py-5 px-4 px-md-5 mb-5">
                         <div class="text-center mb-5">
                             <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-envelope"></i></div>
-                            <h1 class="fw-bolder">MemberLoin Page</h1>
+                            <h1 class="fw-bolder">FindPassword Page</h1>
                             <p class="lead fw-normal text-muted mb-0">We'd love to hear from you</p>
                         </div>
                         <div class="row gx-5 justify-content-center">
@@ -36,30 +37,23 @@
                                 <!-- To make this form functional, sign up at-->
                                 <!-- https://startbootstrap.com/solution/contact-forms-->
                                 <!-- to get an API token!-->
-                                <form id="contactForm" action="./login" method="post" data-sb-form-api-token="API_TOKEN">
+                                    <form:form id="contactForm" modelAttribute="memberVO" action="./findPassword" method="post" data-sb-form-api-token="API_TOKEN">
                                     <!-- UserName input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="username" value="${cookie.remember.value}" name="username" type="text" placeholder="Enter your userName..." data-sb-validations="required" />
-                                        <label for="username">User name</label>
-                                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        <form:input path="username" id="username" cssClass="form-control"/>
+                                        <form:label path="username">User name</form:label>
                                     </div>
-                                    <!-- Password input-->
+                                    
+                                    <!-- email input-->
                                     <div class="form-floating mb-3">
-                                        <input class="form-control" id="password" name="password" type="password" data-sb-validations="required,email" />
-                                        <label for="password">passWord</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
+                                    <form:input path="email" id="email" cssClass="form-control"/>
+                                        <form:label path="email">email</form:label>
+                                        <form:errors path="email"></form:errors>
                                     </div>
-                                  	
-                                  	<div class="form-floating mb-3">
-                                        <input id="remember" name="remember" value="remember" type="checkbox" data-sb-validations="required,email" />
-                                        <label for="remember">ID 기억하기</label>
-                                    </div>
-                                 
+                                    
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="submitButton" type="submit">Submit</button></div>
-                                </form>
-                                <a href="./findPassword">비밀번호 찾기</a>
+                                </form:form>
                             </div>
                         </div>
                     </div>
@@ -88,7 +82,6 @@
                     </div>
                 </div>
             </section>
-    	
 	</main>
 	<!-- Footer 적용 -->
    	<c:import url="../temp/footer.jsp"></c:import>

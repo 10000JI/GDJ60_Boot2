@@ -68,7 +68,7 @@ public class QnaController {
 	
 	//add
 	@GetMapping("add")
-	public ModelAndView setInsert() throws Exception{
+	public ModelAndView setInsert(@ModelAttribute BoardVO boardVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("board/add");
 		return mv;

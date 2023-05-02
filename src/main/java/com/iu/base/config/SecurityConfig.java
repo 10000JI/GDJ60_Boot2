@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.iu.base.member.MemberService;
 import com.iu.base.member.MemberSocialService;
 import com.iu.base.security.UserLoginFailHandler;
+import com.iu.base.security.UserLogoutHandler;
 import com.iu.base.security.UserLogoutSucessHandler;
 import com.iu.base.security.UserSuccessHandler;
 
@@ -24,7 +25,11 @@ public class SecurityConfig {
 	private UserLogoutSucessHandler logoutSucessHandler;
 	
 	@Autowired
+	private UserLogoutHandler userLogoutHandler;
+	
+	@Autowired
 	private MemberSocialService memberSocialService;
+
 	
 	@Bean
 	//public 을 선언하면 default로 바꾸라는 메세지 출력
@@ -75,6 +80,7 @@ public class SecurityConfig {
 				.logoutUrl("/member/logout")
 				.logoutSuccessUrl("/")
 				.logoutSuccessHandler(logoutSucessHandler)//UserLogoutSucessHandler 객체 생성 (로그아웃 성공시)
+				//.addLogoutHandler(userLogoutHandler) //UserLogoutHandler 객체 생성(단순 로그아웃)
 				.invalidateHttpSession(true)
 				.deleteCookies("JSESSIONID")
 				.permitAll()

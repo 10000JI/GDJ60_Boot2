@@ -139,9 +139,7 @@
 				</div>
 			</div>
 		</section>
-		<sec:authorize access="hasRole('ADMIN')">
 		<a href="./add">WRITER</a>
-		</sec:authorize>
 	</main>
 	<!-- Footer 적용 -->
    	<c:import url="../temp/footer.jsp"></c:import>

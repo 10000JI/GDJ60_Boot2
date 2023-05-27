@@ -96,7 +96,7 @@ public class NoticeController {
 		for(MultipartFile multipartFile:boardFiles) {
 			log.info("OriginalName: {} Size: {}", multipartFile.getOriginalFilename(), multipartFile.getSize());
 		}
-		//int result = noticeService.setInsert(boardVO,boardFiles);
+		int result = noticeService.setInsert(boardVO,boardFiles);
 		//boardFiles는 jsp에서 온 파라미터 이름과 동일하게 하려고, Service는 어떤 이름이 와도 상관X
 		mv.setViewName("redirect:./list");
 		return mv;

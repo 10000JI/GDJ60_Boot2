@@ -26,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/notice/*")
 @Slf4j
 public class NoticeController {
+	//테스트
 	
 	@Autowired
 	private NoticeService noticeService;
